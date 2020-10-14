@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import Calendar from "./components/Calendar/Calendar";
+import Details from "./components/Details/Details";
+import Features from "./components/Features/Features";
+import Footer from "./components/Footer/Footer";
+import './style.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+function App() {
+  return(
+    <React.Fragment>
+      <Header />
+      <Main />
+      <Footer />
+    </React.Fragment>
+  );
 }
 
 export default App;
