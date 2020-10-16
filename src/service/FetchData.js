@@ -1,8 +1,8 @@
 export default class FetchData {
     startUrl = 'https://api.spacexdata.com/v4/';
+    
     getResourse = async url => {
         const res = await fetch(url);
-
         if(!res.ok){
             throw new Error(`Произошла ошибонька ${res.status}`)
         }

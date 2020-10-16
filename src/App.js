@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {BrowserRouter, Route} from "react-router-dom";
 import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
 import Main from "./components/Main/Main";
 import Calendar from "./components/Calendar/Calendar";
 import Details from "./components/Details/Details";
@@ -17,10 +19,12 @@ class App extends React.Component {
     rocket: 'Falcon 1',
     rocketFeatures: null,
     rockets: [],
+    company: null,
   };
 
   componentDidMount(){
     this.upDateRocket();
+    this.upDateCompany();
   }
 
   upDateRocket(){
@@ -32,6 +36,11 @@ class App extends React.Component {
     .then(rocketFeatures => this.setState({rocketFeatures}));
   }
 
+  upDateCompany = () => {
+    this.fetchData.getCompany()
+    .then(data => this.setState({company: data}))
+  }
+
 changeRocket = rocket => {
   this.setState({
       rocket
@@ -39,14 +48,31 @@ changeRocket = rocket => {
 }
 
   render() {
-    console.log(this.state)
     return(
-      <React.Fragment>
+      <BrowserRouter >
         <Header rockets={this.state.rockets} changeRocket={this.changeRocket}/>
-        <Main rocket={this.state.rocket}/>
-        <Features />
-        <Footer />
-      </React.Fragment>
+
+        <Route exact path='/'>
+          {this.state.company ? <Home company={this.state.company}/> :  null}
+        </Route>
+        
+        <Route path='/rocket'>
+          <Main rocket={this.state.rocket}/>
+          {this.state.rocketFeatures ? <Features {...this.state.rocketFeatures}/> :  null}
+        </Route>
+
+        <Route path='/calendar'>
+          
+          <Calendar />
+        </Route>
+
+        <Route path='/details'>
+          
+          <Details />
+        </Route>
+
+        {this.state.company ? <Footer {...this.state.company.links}/> : null}
+      </BrowserRouter>
     );
   }
 }
